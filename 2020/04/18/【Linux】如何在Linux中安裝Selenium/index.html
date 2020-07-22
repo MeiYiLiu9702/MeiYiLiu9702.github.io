@@ -86,11 +86,14 @@
 <meta property="og:site_name" content="May&#39;s Blog">
 <meta property="og:description" content="前言這篇不太能算是都是我自己寫的，基本上比較像是筆記，把參考的資料英翻中。Windows 的方式比較簡單，只需要下載對應的瀏覽器的webdriver以及安裝相關的package就完成準備工作了。">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://meiyiliu-tw9702.github.io/images/post/20200418/1.jpg">
+<meta property="og:image" content="https://meiyiliu-tw9702.github.io/images/post/20200418/2.jpg">
 <meta property="article:published_time" content="2020-04-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-22T09:19:20.738Z">
+<meta property="article:modified_time" content="2020-07-22T09:35:05.107Z">
 <meta property="article:author" content="MeiYiLiu">
 <meta property="article:tag" content="selenium, linux, WebCrawler">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://meiyiliu-tw9702.github.io/images/post/20200418/1.jpg">
 
 
 
@@ -355,9 +358,10 @@
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>這篇不太能算是都是我自己寫的，基本上比較像是筆記，把參考的資料英翻中。Windows 的方式比較簡單，只需要下載對應的瀏覽器的webdriver以及安裝相關的package就完成準備工作了。</p>
 <a id="more"></a>
 
-<h2 id="系統的基本資訊"><a href="#系統的基本資訊" class="headerlink" title="系統的基本資訊"></a>系統的基本資訊</h2><ul>
+<h2 id="系統的基本資訊"><a href="#系統的基本資訊" class="headerlink" title="系統的基本資訊"></a>系統的基本資訊</h2><p>s</p>
+<ul>
 <li>作業系統：Ubuntu 18.04</li>
-<li>瀏覽器：Google Chrome (Chrome Driver download) [Selenium plugin download]</li>
+<li>瀏覽器：Google Chrome </br> <a href="https://chromedriver.chromium.org/downloads" target="_blank" rel="noopener">Chrome Driver download</a> </br> <a href="https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd?utm_source=chrome-ntp-icon" target="_blank" rel="noopener">Selenium Google chrome plugin download</a> </li>
 <li>程式語言：Python 3.6</li>
 <li>使用的python package：<ul>
 <li>selenium </br> 安裝語法：<code>pip install selenium</code></li>
@@ -366,13 +370,33 @@
 </ul>
 <h2 id="Linux-環境設定"><a href="#Linux-環境設定" class="headerlink" title="Linux 環境設定"></a>Linux 環境設定</h2><p>我這邊是使用ubuntu 18.04的版本，如果是使用其他的版本的linux，可能要自己去找一下相同功能的指令進行設定。本部份的指令請在Terminal上面執行。</p>
 <p>selenium在執行的使用，會使用到<strong>java</strong>，所以系統裡面要先準備java的環境，一般建議會安裝jdk的package。(jre的我沒特別測試，有使用的人可以補充) </p>
-<p>註：在寫這篇教學的時候，因為我自己用sudo安裝一直沒有成功，所以進root狀態執行指令。一般而言，sudo安裝就可以了。</p>
 <p>進入root環境： <code>sudo -i</code> (指令輸入後，系統會要求輸入密碼)</p>
-<p>jdk安裝指令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4</span><br><span class="line">sudo apt-get install default-jdk</span><br></pre></td></tr></table></figure>
+<p><sub>註：在寫這篇教學的時候，因為我自己用sudo安裝一直沒有成功，所以進root狀態執行指令。一般而言，sudo安裝就可以了。</sub></p>
+<h3 id="jdk安裝指令："><a href="#jdk安裝指令：" class="headerlink" title="jdk安裝指令："></a>jdk安裝指令：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4</span><br><span class="line">sudo apt-get install default-jdk</span><br></pre></td></tr></table></figure>
 
-<p>更新瀏覽器的指令：(下載Chrome的時候基本上就會安裝了，不確定有沒有安裝的話可以跑一次)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -sS -o - https:&#x2F;&#x2F;dl-ssl.google.com&#x2F;linux&#x2F;linux_signing_key.pub | apt-key add</span><br><span class="line"></span><br><span class="line">sudo echo &quot;deb [arch&#x3D;amd64] http:&#x2F;&#x2F;dl.google.com&#x2F;linux&#x2F;chrome&#x2F;deb&#x2F; stable main&quot; &gt;&gt; &#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;google-chrome.list</span><br><span class="line"></span><br><span class="line">sudo apt-get -y update</span><br><span class="line"></span><br><span class="line">sudo apt-get -y install google-chrome-stable</span><br></pre></td></tr></table></figure>
+<h3 id="更新瀏覽器的指令："><a href="#更新瀏覽器的指令：" class="headerlink" title="更新瀏覽器的指令："></a>更新瀏覽器的指令：</h3><p>下載Chrome的時候基本上就會安裝了，不確定有沒有安裝的話可以跑一次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -sS -o - https:&#x2F;&#x2F;dl-ssl.google.com&#x2F;linux&#x2F;linux_signing_key.pub | apt-key add</span><br><span class="line"></span><br><span class="line">sudo echo &quot;deb [arch&#x3D;amd64] http:&#x2F;&#x2F;dl.google.com&#x2F;linux&#x2F;chrome&#x2F;deb&#x2F; stable main&quot; &gt;&gt; &#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;google-chrome.list</span><br><span class="line"></span><br><span class="line">sudo apt-get -y update</span><br><span class="line">sudo apt-get -y install google-chrome-stable</span><br></pre></td></tr></table></figure>
+
+<h3 id="下載瀏覽器的driver："><a href="#下載瀏覽器的driver：" class="headerlink" title="下載瀏覽器的driver："></a>下載瀏覽器的driver：</h3><p><sub>註：這個部份你也可以自己下載，然後另外放在其他位置。我自己是另外開一個資料夾存檔，網路上一般的教學是使用Firefox，但是Chrome也是類似的。不過我不太會使用Firefox的selenium plugin，所以這邊是使用Chromedriver。之後除了selenium plugin的操作流程會有差異以外，Python程式碼是一樣的。</sub></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;chromedriver.storage.googleapis.com&#x2F;2.41&#x2F;chromedriver_linux64.zip # 從網路上下載，這邊的網址可以去chrome driver 的官方下載連結進行替換。</span><br><span class="line">unzip chromedriver_linux64.zip #解壓縮</span><br></pre></td></tr></table></figure>
+
+<p>安裝控制selenium相關的jar檔案：(檔案預設下載位置： /home/user/ 這裡)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;selenium-release.storage.googleapis.com&#x2F;3.13&#x2F;selenium-server-standalone-3.13.0.jar</span><br><span class="line">wget http:&#x2F;&#x2F;www.java2s.com&#x2F;Code&#x2F;JarDownload&#x2F;testng&#x2F;testng-6.8.7.jar.zip</span><br><span class="line">unzip testng-6.8.7.jar.zip #解壓縮</span><br></pre></td></tr></table></figure>
+
+<h3 id="啟動："><a href="#啟動：" class="headerlink" title="啟動："></a>啟動：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export PATH&#x3D;$PATH:&#x2F;usr&#x2F;lib&#x2F;jvm&#x2F;jdk-14&#x2F;bin </span><br><span class="line">#Java 路徑設定： （每次啟動前都要跑一次）</span><br><span class="line">xvfb-run java -Dwebdriver.chrome.driver&#x3D;&#x2F;usr&#x2F;bin&#x2F;chromedriver -jar **&#x2F;home&#x2F;may&#x2F;selenium-server-standalone-3.13.0.jar** </span><br><span class="line"># **中間的部份請替換成下載的檔案跟檔案位置</span><br></pre></td></tr></table></figure>
+
+<p>成功啟動的畫面： (位置：localhost:4444，Terminal 上面會顯示啟動的port)</p>
+<p><img src="/images/post/20200418/1.jpg" alt="啟動的Terminal"></p>
+<p><img src="/images/post/20200418/2.jpg" alt="Selenium啟動畫面"></p>
+<hr>
+<p>參考資料：</p>
+<ul>
+<li>selenium install and launch on ubuntu 指令設定與安裝參考：<a href="https://tecadmin.net/setup-selenium-chromedriver-on-ubuntu/" target="_blank" rel="noopener">https://tecadmin.net/setup-selenium-chromedriver-on-ubuntu/</a></li>
+</ul>
+<ul>
+<li>ChromeDriver - WebDriver for Chrome：<a href="https://chromedriver.chromium.org/downloads" target="_blank" rel="noopener">https://chromedriver.chromium.org/downloads</a></li>
+</ul>
+
       
     </div>
     
@@ -562,7 +586,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系統的基本資訊"><span class="nav-number">2.</span> <span class="nav-text">系統的基本資訊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-環境設定"><span class="nav-number">3.</span> <span class="nav-text">Linux 環境設定</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系統的基本資訊"><span class="nav-number">2.</span> <span class="nav-text">系統的基本資訊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-環境設定"><span class="nav-number">3.</span> <span class="nav-text">Linux 環境設定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jdk安裝指令："><span class="nav-number">3.1.</span> <span class="nav-text">jdk安裝指令：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新瀏覽器的指令："><span class="nav-number">3.2.</span> <span class="nav-text">更新瀏覽器的指令：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下載瀏覽器的driver："><span class="nav-number">3.3.</span> <span class="nav-text">下載瀏覽器的driver：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#啟動："><span class="nav-number">3.4.</span> <span class="nav-text">啟動：</span></a></li></ol></li></ol></div>
             
 
           </div>
