@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="office, blog, tips," />
+  <meta name="keywords" content="selenium, linux, WebCrawler," />
 
 
 
@@ -79,22 +79,18 @@
 
 
 
-<meta name="description" content="前言會發現這個是因為今天在把圖片轉成可以編輯的.PPTX檔案的時候，為了尋求偷懶的技巧，新增的技能(?)。這個方法的核心是利用windows建立的.emf檔案，可以在office系列軟體當中，被判定成物件，將圖片轉換成可以編輯的繪圖物件進行編輯。">
+<meta name="description" content="前言這篇不太能算是都是我自己寫的，基本上比較像是筆記，把參考的資料英翻中。Windows 的方式比較簡單，只需要下載對應的瀏覽器的webdriver以及安裝相關的package就完成準備工作了。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【OFFICE】 圖片變成可編輯狀態">
-<meta property="og:url" content="https://meiyiliu-tw9702.github.io/2020/07/16/%E3%80%90OFFICE%E3%80%91%20%E5%9C%96%E7%89%87%E8%AE%8A%E6%88%90%E5%8F%AF%E7%B7%A8%E8%BC%AF%E7%8B%80%E6%85%8B/index.html">
+<meta property="og:title" content="【Linux】如何在Linux中安裝Selenium">
+<meta property="og:url" content="https://meiyiliu-tw9702.github.io/2020/04/18/%E3%80%90Linux%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8Linux%E4%B8%AD%E5%AE%89%E8%A3%9DSelenium/index.html">
 <meta property="og:site_name" content="May&#39;s Blog">
-<meta property="og:description" content="前言會發現這個是因為今天在把圖片轉成可以編輯的.PPTX檔案的時候，為了尋求偷懶的技巧，新增的技能(?)。這個方法的核心是利用windows建立的.emf檔案，可以在office系列軟體當中，被判定成物件，將圖片轉換成可以編輯的繪圖物件進行編輯。">
+<meta property="og:description" content="前言這篇不太能算是都是我自己寫的，基本上比較像是筆記，把參考的資料英翻中。Windows 的方式比較簡單，只需要下載對應的瀏覽器的webdriver以及安裝相關的package就完成準備工作了。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://meiyiliu-tw9702.github.io/images/post/20200716_office/1.jpg">
-<meta property="og:image" content="https://meiyiliu-tw9702.github.io/images/post/20200716_office/2.jpg">
-<meta property="og:image" content="https://meiyiliu-tw9702.github.io/images/post/20200716_office/3.jpg">
-<meta property="article:published_time" content="2020-07-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-22T08:46:51.997Z">
+<meta property="article:published_time" content="2020-04-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-22T09:19:20.738Z">
 <meta property="article:author" content="MeiYiLiu">
-<meta property="article:tag" content="office, blog, tips">
+<meta property="article:tag" content="selenium, linux, WebCrawler">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://meiyiliu-tw9702.github.io/images/post/20200716_office/1.jpg">
 
 
 
@@ -124,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://meiyiliu-tw9702.github.io/2020/07/16/【OFFICE】 圖片變成可編輯狀態/"/>
+  <link rel="canonical" href="https://meiyiliu-tw9702.github.io/2020/04/18/【Linux】如何在Linux中安裝Selenium/"/>
 
 
 
 
 
-  <title>【OFFICE】 圖片變成可編輯狀態 | May's Blog</title>
+  <title>【Linux】如何在Linux中安裝Selenium | May's Blog</title>
   
 
 
@@ -267,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://meiyiliu-tw9702.github.io/2020/07/16/%E3%80%90OFFICE%E3%80%91%20%E5%9C%96%E7%89%87%E8%AE%8A%E6%88%90%E5%8F%AF%E7%B7%A8%E8%BC%AF%E7%8B%80%E6%85%8B/">
+    <link itemprop="mainEntityOfPage" href="https://meiyiliu-tw9702.github.io/2020/04/18/%E3%80%90Linux%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8Linux%E4%B8%AD%E5%AE%89%E8%A3%9DSelenium/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MeiYiLiu">
@@ -284,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【OFFICE】 圖片變成可編輯狀態</h1>
+          <h1 class="post-title" itemprop="name headline">【Linux】如何在Linux中安裝Selenium</h1>
         
 
         <div class="post-meta">
@@ -296,8 +292,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-16T00:00:00+08:00">
-                2020-07-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-18T00:00:00+08:00">
+                2020-04-18
               </time>
             
 
@@ -319,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OfficeTip/" itemprop="url" rel="index">
-                    <span itemprop="name">OfficeTip</span>
+                  <a href="/categories/WebCrawler/" itemprop="url" rel="index">
+                    <span itemprop="name">WebCrawler</span>
                   </a>
                 </span>
 
@@ -356,23 +352,27 @@
       
 
       
-        <!-- # 【OFFICE】 圖片變成可編輯狀態 -->
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>會發現這個是因為今天在把圖片轉成可以編輯的.PPTX檔案的時候，為了尋求偷懶的技巧，新增的技能(?)。這個方法的核心是利用windows建立的.emf檔案，可以在office系列軟體當中，被判定成物件，將圖片轉換成可以編輯的繪圖物件進行編輯。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>這篇不太能算是都是我自己寫的，基本上比較像是筆記，把參考的資料英翻中。Windows 的方式比較簡單，只需要下載對應的瀏覽器的webdriver以及安裝相關的package就完成準備工作了。</p>
 <a id="more"></a>
 
+<h2 id="系統的基本資訊"><a href="#系統的基本資訊" class="headerlink" title="系統的基本資訊"></a>系統的基本資訊</h2><ul>
+<li>作業系統：Ubuntu 18.04</li>
+<li>瀏覽器：Google Chrome (Chrome Driver download) [Selenium plugin download]</li>
+<li>程式語言：Python 3.6</li>
+<li>使用的python package：<ul>
+<li>selenium </br> 安裝語法：<code>pip install selenium</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="Linux-環境設定"><a href="#Linux-環境設定" class="headerlink" title="Linux 環境設定"></a>Linux 環境設定</h2><p>我這邊是使用ubuntu 18.04的版本，如果是使用其他的版本的linux，可能要自己去找一下相同功能的指令進行設定。本部份的指令請在Terminal上面執行。</p>
+<p>selenium在執行的使用，會使用到<strong>java</strong>，所以系統裡面要先準備java的環境，一般建議會安裝jdk的package。(jre的我沒特別測試，有使用的人可以補充) </p>
+<p>註：在寫這篇教學的時候，因為我自己用sudo安裝一直沒有成功，所以進root狀態執行指令。一般而言，sudo安裝就可以了。</p>
+<p>進入root環境： <code>sudo -i</code> (指令輸入後，系統會要求輸入密碼)</p>
+<p>jdk安裝指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4</span><br><span class="line">sudo apt-get install default-jdk</span><br></pre></td></tr></table></figure>
 
-<h3 id="步驟一、"><a href="#步驟一、" class="headerlink" title="步驟一、"></a>步驟一、</h3><p>首先先確定自己使用的繪圖程式(PPT、AI、PS…)支援將檔案存成 <strong>.EMF (Windows增強型中繼檔)</strong> 。</p>
-<h3 id="步驟二、"><a href="#步驟二、" class="headerlink" title="步驟二、"></a>步驟二、</h3><p>將目標圖片另存新檔，檔案格式選擇 <strong>.EMF</strong>。</p>
-<p><code>這個地方要注意，圖片要一張一張分開儲存。如果是AI就是盡量一個工作區域存一張，不然之後轉換物件的時候會發生問題，難以編輯。</code></p>
-<p><img src="/images/post/20200716_office/1.jpg" alt="檔案存檔示意"></p>
-<h3 id="步驟三、"><a href="#步驟三、" class="headerlink" title="步驟三、"></a>步驟三、</h3><p>打開欲使用的Office軟體 (PPT、Word…)</p>
-<h3 id="步驟四、"><a href="#步驟四、" class="headerlink" title="步驟四、"></a>步驟四、</h3><p>在軟體中選擇插入圖片，圖片選擇剛剛儲存的 .EMF檔案</p>
-<h3 id="步驟五、"><a href="#步驟五、" class="headerlink" title="步驟五、"></a>步驟五、</h3><p>調整圖片位置。<br><code>這個地方要先調整好，因為之後轉換成可以編輯的狀態的時候，會很難一次調整全部的物件大小與位置。</code></p>
-<h3 id="步驟六、"><a href="#步驟六、" class="headerlink" title="步驟六、"></a>步驟六、</h3><p>對著調整好的圖片，點選右鍵。在選單中選擇「組成群組」的選項，在選項中選擇「取消群組」。此時會跳出警告的視窗，選擇「是」。Office就會開始進行檔案的轉換</p>
-<p><img src="/images/post/20200716_office/2.jpg" alt="取消群組"></p>
-<p><img src="/images/post/20200716_office/3.jpg" alt="警告標語"></p>
-<h3 id="步驟七、"><a href="#步驟七、" class="headerlink" title="步驟七、"></a>步驟七、</h3><p>等待檔案轉換完畢，就可以開始編輯剛剛插入的圖片物件了</p>
-
+<p>更新瀏覽器的指令：(下載Chrome的時候基本上就會安裝了，不確定有沒有安裝的話可以跑一次)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -sS -o - https:&#x2F;&#x2F;dl-ssl.google.com&#x2F;linux&#x2F;linux_signing_key.pub | apt-key add</span><br><span class="line"></span><br><span class="line">sudo echo &quot;deb [arch&#x3D;amd64] http:&#x2F;&#x2F;dl.google.com&#x2F;linux&#x2F;chrome&#x2F;deb&#x2F; stable main&quot; &gt;&gt; &#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;google-chrome.list</span><br><span class="line"></span><br><span class="line">sudo apt-get -y update</span><br><span class="line"></span><br><span class="line">sudo apt-get -y install google-chrome-stable</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -389,7 +389,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/office-blog-tips/" rel="tag"># office, blog, tips</a>
+            <a href="/tags/selenium-linux-WebCrawler/" rel="tag"># selenium, linux, WebCrawler</a>
           
         </div>
       
@@ -402,8 +402,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/18/%E3%80%90Linux%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8Linux%E4%B8%AD%E5%AE%89%E8%A3%9DSelenium/" rel="next" title="【Linux】如何在Linux中安裝Selenium">
-                <i class="fa fa-chevron-left"></i> 【Linux】如何在Linux中安裝Selenium
+              <a href="/2019/10/17/%E3%80%90QGIS%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8QGIS%E4%B8%8B%E8%BC%89%E8%88%87%E4%BD%BF%E7%94%A8OSM%E5%9C%96%E8%B3%87/" rel="next" title="【QGIS】 如何在QGIS下載與使用OSM圖資">
+                <i class="fa fa-chevron-left"></i> 【QGIS】 如何在QGIS下載與使用OSM圖資
               </a>
             
           </div>
@@ -412,8 +412,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/07/22/%E4%BD%9C%E5%93%81%E9%9B%86/" rel="prev" title="作品集">
-                作品集 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/07/16/%E3%80%90OFFICE%E3%80%91%20%E5%9C%96%E7%89%87%E8%AE%8A%E6%88%90%E5%8F%AF%E7%B7%A8%E8%BC%AF%E7%8B%80%E6%85%8B/" rel="prev" title="【OFFICE】 圖片變成可編輯狀態">
+                【OFFICE】 圖片變成可編輯狀態 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -562,7 +562,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步驟一、"><span class="nav-number">2.</span> <span class="nav-text">步驟一、</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步驟二、"><span class="nav-number">3.</span> <span class="nav-text">步驟二、</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步驟三、"><span class="nav-number">4.</span> <span class="nav-text">步驟三、</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步驟四、"><span class="nav-number">5.</span> <span class="nav-text">步驟四、</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步驟五、"><span class="nav-number">6.</span> <span class="nav-text">步驟五、</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步驟六、"><span class="nav-number">7.</span> <span class="nav-text">步驟六、</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步驟七、"><span class="nav-number">8.</span> <span class="nav-text">步驟七、</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系統的基本資訊"><span class="nav-number">2.</span> <span class="nav-text">系統的基本資訊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-環境設定"><span class="nav-number">3.</span> <span class="nav-text">Linux 環境設定</span></a></li></ol></div>
             
 
           </div>
