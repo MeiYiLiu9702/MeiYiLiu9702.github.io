@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="May, GIS, Blog" />
+  <meta name="keywords" content="qgis, blog, tips, osm," />
 
 
 
@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="大學課程作業整理大一 人文地理學通論 (Introduction to Human Geography)  自然地理學通論 (Introduction to Physical Geography) 本國憲法通論 (Understanding the Roc Constitution) 地圖學及實習 (Cartography and Cartography Lab.) 計算機概論與程式設計 (Int">
-<meta property="og:type" content="website">
-<meta property="og:title" content="May&#39;s Blog">
-<meta property="og:url" content="https://meiyiliu-tw9702.github.io/course/index.html">
+<meta name="description" content="【QGIS】 如何在QGIS下載與使用OSM圖資前言　　這個算是這學期的小收穫之一，因為這學期帶學生上課與出實察的備課需要的關係，想到可以用 Open Street Map (以下簡稱OSM) 的資料去製作路網圖。以往用網路上提供wmts、wms連結資料直接輸出路網圖的時候，最後輸出的字總是太小。由於OSM開放圖資可以下載的關係，可以就自己的需求，更客製化自己的地圖。(如封面) 　　本文大概會簡單">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【QGIS】 如何在QGIS下載與使用OSM圖資">
+<meta property="og:url" content="https://meiyiliu-tw9702.github.io/2019/10/17/%E3%80%90QGIS%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8QGIS%E4%B8%8B%E8%BC%89%E8%88%87%E4%BD%BF%E7%94%A8OSM%E5%9C%96%E8%B3%87/index.html">
 <meta property="og:site_name" content="May&#39;s Blog">
-<meta property="og:description" content="大學課程作業整理大一 人文地理學通論 (Introduction to Human Geography)  自然地理學通論 (Introduction to Physical Geography) 本國憲法通論 (Understanding the Roc Constitution) 地圖學及實習 (Cartography and Cartography Lab.) 計算機概論與程式設計 (Int">
+<meta property="og:description" content="【QGIS】 如何在QGIS下載與使用OSM圖資前言　　這個算是這學期的小收穫之一，因為這學期帶學生上課與出實察的備課需要的關係，想到可以用 Open Street Map (以下簡稱OSM) 的資料去製作路網圖。以往用網路上提供wmts、wms連結資料直接輸出路網圖的時候，最後輸出的字總是太小。由於OSM開放圖資可以下載的關係，可以就自己的需求，更客製化自己的地圖。(如封面) 　　本文大概會簡單">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-07-22T06:16:01.318Z">
-<meta property="article:modified_time" content="2020-07-22T06:16:01.318Z">
+<meta property="article:published_time" content="2019-10-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-22T07:20:01.597Z">
 <meta property="article:author" content="MeiYiLiu">
+<meta property="article:tag" content="qgis, blog, tips, osm">
 <meta name="twitter:card" content="summary">
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://meiyiliu-tw9702.github.io/course/"/>
+  <link rel="canonical" href="https://meiyiliu-tw9702.github.io/2019/10/17/【QGIS】如何在QGIS下載與使用OSM圖資/"/>
 
 
 
 
 
-  <title> | May's Blog</title>
+  <title>【QGIS】 如何在QGIS下載與使用OSM圖資 | May's Blog</title>
   
 
 
@@ -250,44 +251,175 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://meiyiliu-tw9702.github.io/2019/10/17/%E3%80%90QGIS%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8QGIS%E4%B8%8B%E8%BC%89%E8%88%87%E4%BD%BF%E7%94%A8OSM%E5%9C%96%E8%B3%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MeiYiLiu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="May's Blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline"></h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <h1 id="大學課程作業整理"><a href="#大學課程作業整理" class="headerlink" title="大學課程作業整理"></a>大學課程作業整理</h1><h2 id="大一"><a href="#大一" class="headerlink" title="大一"></a>大一</h2><ul>
-<li>人文地理學通論 (Introduction to Human Geography) </li>
-<li>自然地理學通論 (Introduction to Physical Geography)</li>
-<li>本國憲法通論 (Understanding the Roc Constitution)</li>
-<li>地圖學及實習 (Cartography and Cartography Lab.)</li>
-<li>計算機概論與程式設計 (Introduction to Computer and Programming)</li>
-<li>普通地質學 (Physical Geology)</li>
-</ul>
-<h2 id="大二"><a href="#大二" class="headerlink" title="大二"></a>大二</h2><ul>
-<li>地理資訊系統概論 (Introduction to Geographic Information Systems)<h2 id="大三"><a href="#大三" class="headerlink" title="大三"></a>大三</h2><h2 id="大四"><a href="#大四" class="headerlink" title="大四"></a>大四</h2></li>
-</ul>
-
+          <h1 class="post-title" itemprop="name headline">【QGIS】 如何在QGIS下載與使用OSM圖資</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-17T00:00:00+08:00">
+                2019-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/QgisTips/" itemprop="url" rel="index">
+                    <span itemprop="name">QgisTips</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="【QGIS】-如何在QGIS下載與使用OSM圖資"><a href="#【QGIS】-如何在QGIS下載與使用OSM圖資" class="headerlink" title="【QGIS】 如何在QGIS下載與使用OSM圖資"></a>【QGIS】 如何在QGIS下載與使用OSM圖資</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>　　這個算是這學期的小收穫之一，因為這學期帶學生上課與出實察的備課需要的關係，想到可以用 <em>Open Street Map (以下簡稱OSM)</em> 的資料去製作路網圖。以往用網路上提供wmts、wms連結資料直接輸出路網圖的時候，最後輸出的字總是太小。由於OSM開放圖資可以下載的關係，可以就自己的需求，更客製化自己的地圖。(如封面)</p>
+<p>　　本文大概會簡單地分成兩個部分，第一部分是如何在QGIS當中直接下載OSM的資料。第二部分則是如何直接套用現有的樣式表。(文中附上我使用的樣式表連結)</p>
+<a id="more"></a>
+
+<h2 id="如何在QGIS當中直接下載OSM的資料"><a href="#如何在QGIS當中直接下載OSM的資料" class="headerlink" title="如何在QGIS當中直接下載OSM的資料"></a>如何在QGIS當中直接下載OSM的資料</h2><p>要能夠直接在QGIS裡面使用別人製作好的樣式表，首先需要注意的是檔案格式是否為「.osm」。.osm，是OSM自己一個以XML為基礎打包的檔案格式，下載下來的話，裡面會包含點、線、面的資料。過往在QGIS2.X的版本使用的時候，需要再另外轉換成向量檔才能使用(文章參考：搜尋和下載開放街圖資料)。但現在QGIS3.X的版本，只要直接拖曳到軟體的介面裡面就可以使用了。(我目前使用的版本是3.6，但應該是3代以後的都能如此)</p>
+<p>這次要介紹的QGIS的Plugins (註：我比較習慣稱它是外掛，但也有看人用「插件」，就…個人習慣XD) 是「OSMDownloader」。這個Plugins可以直接根據你框選的範圍，自動下載OSM的資料。其下載下來的資料格式會自動就是「.osm」。除了在QGIS當中下載資料以外，geofabrik網站 (網址：<a href="https://download.geofabrik.de/" target="_blank" rel="noopener">https://download.geofabrik.de/</a>?) 也提供OSM的圖資下載，當中有兩種格式：「.shp」與「.osm」。在本次教學中，我們要使用的是「.osm」。(如果你這邊資料已經下載完了，建議你直接跳第二part比較省時間。)<br>在QGIS當中，下載Plugins的位置是從最上方的Plugins選單，選「Manage and Install Plugins 」，在其中輸入OSM作為關鍵字，就可以下載。看到這個視窗之後，選擇右下角的「install」QGIS本身就會自動安裝。</p>
+<p>安裝完成以後，在上面功能圖示的部分，會多出一個一隻手指著框框的icon，這就是剛剛下載的Plugins。</p>
+<p>使用的方法相當人性化，只需要點下剛剛的icon，然後畫面上會出現一個十字，只需要拖曳，框出想要下載圖資的範圍，框選出來的地方會呈現橘黃色。(如下圖)</p>
+<p>接著會跳出視窗顯示經緯度，以及需要選取資料存放的位置與檔名。</p>
+<p>選完之後會跳出進度條，告訴你它正在下載。下載完成之後就可以讀取剛剛的檔案了。</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/qgis-blog-tips-osm/" rel="tag"># qgis, blog, tips, osm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/16/%E3%80%90OFFICE%E3%80%91%20%E5%9C%96%E7%89%87%E8%AE%8A%E6%88%90%E5%8F%AF%E7%B7%A8%E8%BC%AF%E7%8B%80%E6%85%8B/" rel="prev" title="【OFFICE】 圖片變成可編輯狀態">
+                【OFFICE】 圖片變成可編輯狀態 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -416,7 +548,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大學課程作業整理"><span class="nav-number">1.</span> <span class="nav-text">大學課程作業整理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大一"><span class="nav-number">1.1.</span> <span class="nav-text">大一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大二"><span class="nav-number">1.2.</span> <span class="nav-text">大二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大三"><span class="nav-number">1.3.</span> <span class="nav-text">大三</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大四"><span class="nav-number">1.4.</span> <span class="nav-text">大四</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【QGIS】-如何在QGIS下載與使用OSM圖資"><span class="nav-number">1.</span> <span class="nav-text">【QGIS】 如何在QGIS下載與使用OSM圖資</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何在QGIS當中直接下載OSM的資料"><span class="nav-number">1.2.</span> <span class="nav-text">如何在QGIS當中直接下載OSM的資料</span></a></li></ol></li></ol></div>
             
 
           </div>
