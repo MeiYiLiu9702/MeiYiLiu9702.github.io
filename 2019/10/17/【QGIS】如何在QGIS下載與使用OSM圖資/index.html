@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="qgis, blog, tips, osm," />
+  <meta name="keywords" content="-qgis -blog -tips -osm," />
 
 
 
@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="前言這個算是這學期的小收穫之一，因為這學期帶學生上課與出實察的備課需要的關係，想到可以用 Open Street Map (以下簡稱OSM) 的資料去製作路網圖。以往用網路上提供wmts、wms連結資料直接輸出路網圖的時候，最後輸出的字總是太小。由於OSM開放圖資可以下載的關係，可以就自己的需求，更客製化自己的地圖。(如封面) 本文大概會簡單地分成兩個部分，第一部分是如何在QGIS當中直接下載O">
+<meta name="description" content="這個算是這學期的小收穫之一，因為這學期帶學生上課與出實察的備課需要的關係，想到可以用 *Open Street Map (以下簡稱OSM)* 的資料去製作路網圖。以往用網路上提供wmts、wms連結資料直接輸出路網圖的時候，最後輸出的字總是太小。由於OSM開放圖資可以下載的關係，可以就自己的需求，更客製化自己的地圖。  本文大概會簡單地分成兩個部分，第一部分是[如何在QGIS當中直接下載OSM的資">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【QGIS】 如何在QGIS下載與使用OSM圖資">
 <meta property="og:url" content="https://meiyiliu-tw9702.github.io/2019/10/17/%E3%80%90QGIS%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8QGIS%E4%B8%8B%E8%BC%89%E8%88%87%E4%BD%BF%E7%94%A8OSM%E5%9C%96%E8%B3%87/index.html">
 <meta property="og:site_name" content="May&#39;s Blog">
-<meta property="og:description" content="前言這個算是這學期的小收穫之一，因為這學期帶學生上課與出實察的備課需要的關係，想到可以用 Open Street Map (以下簡稱OSM) 的資料去製作路網圖。以往用網路上提供wmts、wms連結資料直接輸出路網圖的時候，最後輸出的字總是太小。由於OSM開放圖資可以下載的關係，可以就自己的需求，更客製化自己的地圖。(如封面) 本文大概會簡單地分成兩個部分，第一部分是如何在QGIS當中直接下載O">
+<meta property="og:description" content="這個算是這學期的小收穫之一，因為這學期帶學生上課與出實察的備課需要的關係，想到可以用 *Open Street Map (以下簡稱OSM)* 的資料去製作路網圖。以往用網路上提供wmts、wms連結資料直接輸出路網圖的時候，最後輸出的字總是太小。由於OSM開放圖資可以下載的關係，可以就自己的需求，更客製化自己的地圖。  本文大概會簡單地分成兩個部分，第一部分是[如何在QGIS當中直接下載OSM的資">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://meiyiliu-tw9702.github.io/images/post/20191017QGIS/1.jpg">
 <meta property="og:image" content="https://meiyiliu-tw9702.github.io/images/post/20191017QGIS/2.jpg">
@@ -102,9 +102,9 @@
 <meta property="og:image" content="https://meiyiliu-tw9702.github.io/images/post/20191017QGIS/14.jpg">
 <meta property="og:image" content="https://meiyiliu-tw9702.github.io/images/post/20191017QGIS/15.jpg">
 <meta property="article:published_time" content="2019-10-16T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-22T09:07:25.598Z">
+<meta property="article:modified_time" content="2020-07-23T18:13:18.218Z">
 <meta property="article:author" content="MeiYiLiu">
-<meta property="article:tag" content="qgis, blog, tips, osm">
+<meta property="article:tag" content="-qgis -blog -tips -osm">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://meiyiliu-tw9702.github.io/images/post/20191017QGIS/1.jpg">
 
@@ -331,8 +331,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/QgisTips/" itemprop="url" rel="index">
-                    <span itemprop="name">QgisTips</span>
+                  <a href="/categories/Qgis-Tips/" itemprop="url" rel="index">
+                    <span itemprop="name">Qgis Tips</span>
                   </a>
                 </span>
 
@@ -354,6 +354,10 @@
           
 
           
+             <!-- <div class="post-description">
+                  這個算是這學期的小收穫之一，因為這學期帶學生上課與出實察的備課需要的關係，想到可以用 *Open Street Map (以下簡稱OSM)* 的資料去製作路網圖。以往用網路上提供wmts、wms連結資料直接輸出路網圖的時候，最後輸出的字總是太小。由於OSM開放圖資可以下載的關係，可以就自己的需求，更客製化自己的地圖。 </br> 本文大概會簡單地分成兩個部分，第一部分是[如何在QGIS當中直接下載OSM的資料](#Part1)。第二部分則是[如何直接套用現有的樣式表](#Part2)。(文中附上我使用的樣式表連結)
+              </div> -->
+          
 
         </div>
       </header>
@@ -368,10 +372,10 @@
       
 
       
-        <!-- # 【QGIS】 如何在QGIS下載與使用OSM圖資 -->
+        <a id="more"></a>
+<!-- # 【QGIS】 如何在QGIS下載與使用OSM圖資 -->
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>這個算是這學期的小收穫之一，因為這學期帶學生上課與出實察的備課需要的關係，想到可以用 <em>Open Street Map (以下簡稱OSM)</em> 的資料去製作路網圖。以往用網路上提供wmts、wms連結資料直接輸出路網圖的時候，最後輸出的字總是太小。由於OSM開放圖資可以下載的關係，可以就自己的需求，更客製化自己的地圖。(如封面)</p>
 <p>本文大概會簡單地分成兩個部分，第一部分是<a href="#Part1">如何在QGIS當中直接下載OSM的資料</a>。第二部分則是<a href="#Part2">如何直接套用現有的樣式表</a>。(文中附上我使用的樣式表連結)</p>
-<a id="more"></a>
 <p><a name="Part1"></a></p>
 <h2 id="如何在QGIS當中直接下載OSM的資料"><a href="#如何在QGIS當中直接下載OSM的資料" class="headerlink" title="如何在QGIS當中直接下載OSM的資料"></a>如何在QGIS當中直接下載OSM的資料</h2><p>要能夠直接在QGIS裡面使用別人製作好的樣式表，首先需要注意的是檔案格式是否為「<strong>.osm</strong>」。<strong>.osm</strong>，是OSM自己一個以XML為基礎打包的檔案格式，下載下來的話，裡面會包含點、線、面的資料。過往在QGIS2.X的版本使用的時候，需要再另外轉換成向量檔才能使用 (文章參考：<a href="http://www.qgistutorials.com/zh_TW/docs/downloading_osm_data.html?" target="_blank" rel="noopener">搜尋和下載開放街圖資料</a> )。但現在QGIS3.X的版本，只要直接拖曳到軟體的介面裡面就可以使用了。(我目前使用的版本是3.6，但應該是3代以後的都能如此)</p>
 <p><img src="/images/post/20191017QGIS/1.jpg" alt="QGIS3.6當中，讀取檔案的畫面。"></p>
@@ -427,7 +431,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/qgis-blog-tips-osm/" rel="tag"># qgis, blog, tips, osm</a>
+            <a href="/tags/qgis-blog-tips-osm/" rel="tag"># -qgis -blog -tips -osm</a>
           
         </div>
       
@@ -440,8 +444,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/17/QG-Hw1/" rel="next" title="【R】矩陣練習">
-                <i class="fa fa-chevron-left"></i> 【R】矩陣練習
+              <a href="/2017/10/06/QG-Hw2/" rel="next" title="【R】面量圖繪製">
+                <i class="fa fa-chevron-left"></i> 【R】面量圖繪製
               </a>
             
           </div>
@@ -529,7 +533,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
