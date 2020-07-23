@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-TW">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/LOGO.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon/LOGO.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon/LOGO.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/icon/LOGO.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="R,Quantitative Geography," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="這個主要是練習用R產生矩陣與取得矩陣當中的數值的練習。題目主要是自己產生一個大眾運輸的票價表(矩陣)，然後透過1. 給定起訖點找票價、2. 給定票價找可能路線、3.給定特定起點與票價找可以到達的點，這幾個練習熟悉R語言的使用。最後會利用GIS資料順便練習繪圖指令。 (因為剛開始寫英文有點順手，就把內文的說明都寫成英文了)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【R】矩陣練習">
+<meta property="og:url" content="https://meiyiliu-tw9702.github.io/2017/09/17/QG-Hw1/index.html">
+<meta property="og:site_name" content="May&#39;s Blog">
+<meta property="og:description" content="這個主要是練習用R產生矩陣與取得矩陣當中的數值的練習。題目主要是自己產生一個大眾運輸的票價表(矩陣)，然後透過1. 給定起訖點找票價、2. 給定票價找可能路線、3.給定特定起點與票價找可以到達的點，這幾個練習熟悉R語言的使用。最後會利用GIS資料順便練習繪圖指令。 (因為剛開始寫英文有點順手，就把內文的說明都寫成英文了)">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://meiyiliu-tw9702.github.io/images/QG-Hw1_files/figure-html/unnamed-chunk-14-1.png">
+<meta property="article:published_time" content="2017-09-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-23T15:00:35.908Z">
+<meta property="article:author" content="MeiYiLiu">
+<meta property="article:tag" content="R">
+<meta property="article:tag" content="Quantitative Geography">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://meiyiliu-tw9702.github.io/images/QG-Hw1_files/figure-html/unnamed-chunk-14-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://meiyiliu-tw9702.github.io/2017/09/17/QG-Hw1/"/>
+
+
+
+
+
+  <title>【R】矩陣練習 | May's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-TW">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">May's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about-me">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About Me
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大學課程">
+          <a href="/course/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            大學課程
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-作品集">
+          <a href="/Prof/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br />
+            
+            作品集
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://meiyiliu-tw9702.github.io/2017/09/17/QG-Hw1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MeiYiLiu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="May's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【R】矩陣練習</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-17T00:00:00+08:00">
+                2017-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Quantitative-Geography/" itemprop="url" rel="index">
+                    <span itemprop="name">Quantitative Geography</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  這個主要是練習用R產生矩陣與取得矩陣當中的數值的練習。題目主要是自己產生一個大眾運輸的票價表(矩陣)，然後透過1. 給定起訖點找票價、2. 給定票價找可能路線、3.給定特定起點與票價找可以到達的點，這幾個練習熟悉R語言的使用。最後會利用GIS資料順便練習繪圖指令。</br> (因為剛開始寫英文有點順手，就把內文的說明都寫成英文了)
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Based-on-the-data-table-to-find-the-price-and-route"><a href="#Based-on-the-data-table-to-find-the-price-and-route" class="headerlink" title="Based on the data table to find the price and route."></a>Based on the data table to find the price and route.</h2><h2 id="Require-packages"><a href="#Require-packages" class="headerlink" title="Require packages"></a>Require packages</h2><ul>
+<li>magrittr: For pipe flow (%&gt;%) control</li>
+<li>knitr: For beautiful display in R Markdown.</li>
+<li>kableExtra: For beautiful display in R Markdown.</li>
+<li>rgdal: To load shp in R.</li>
+<li>GISTools: GIS finction package.</li>
+</ul>
+<h2 id="Build-Relative-Functions"><a href="#Build-Relative-Functions" class="headerlink" title="Build Relative Functions"></a>Build Relative Functions</h2><ol>
+<li>Create Data Matrix for Test </br><br>I use the r function named <code>rnorm</code> to random create the value to be the price of traffic tickets. I make the list of price which created by <code>rnorm</code> function to be a <strong>matrix</strong> and rename the col and row to show the station (with code). </br> In defult, the <code>rnorm</code> will randomly create values from normal distribution with mean value = 0 and standard deviation (sd) = 1. You can change the value when you use the function in R.</br><br>The document of rnorm is <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Normal" target="_blank" rel="noopener">here</a></li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">PriceData_matrix &lt;- <span class="keyword">function</span>(num) &#123;</span><br><span class="line">    s &lt;- sqrt(num)</span><br><span class="line">    <span class="keyword">if</span>( s == as.integer(s))&#123;</span><br><span class="line">        p &lt;- (rnorm(num)*<span class="number">1000</span>) %&gt;% abs(.) %&gt;% round(.) %&gt;% sort(.) %&gt;%</span><br><span class="line">            matrix(., c(s,s), byrow = <span class="literal">T</span>)</span><br><span class="line">        col &lt;- c()</span><br><span class="line">        row &lt;- c()        </span><br><span class="line">        <span class="keyword">for</span> (i <span class="keyword">in</span> seq(<span class="number">1</span>,s)) &#123;</span><br><span class="line">           col &lt;- c(col,paste0(<span class="string">"A"</span>,i))</span><br><span class="line">           row &lt;- c(row,paste0(<span class="string">"A"</span>,i))</span><br><span class="line">           <span class="keyword">for</span> (j <span class="keyword">in</span> seq(<span class="number">1</span>,s)) &#123;</span><br><span class="line">               <span class="keyword">if</span>(j == i)&#123;</span><br><span class="line">                   p[i,j] &lt;- <span class="number">0</span></span><br><span class="line">               &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                   pi &lt;- p[i,j]</span><br><span class="line">                   pj &lt;- p[j,i]</span><br><span class="line">                   <span class="keyword">if</span>(pi != <span class="number">0</span> &amp;&amp; pi &gt; pj)&#123;</span><br><span class="line">                       p[i,j]&lt;-pi</span><br><span class="line">                   &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                       p[i,j] &lt;- pj</span><br><span class="line">                       &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        colnames(p) &lt;- col</span><br><span class="line">        rownames(p) &lt;- row</span><br><span class="line">        <span class="keyword">return</span>(p)</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">           print(<span class="string">"請輸入開根號為0的整數"</span>) <span class="comment">#warning message</span></span><br><span class="line">        &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>I give a Origin station and a Disitnation to find the ticket price. </br><br>In this function, I use the <code>which</code> function to find the index with given value in the price matrix. </br> The target is that I give the name of the origin station and distination and then R tells to me the price from the origin to distination.</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FindPrice &lt;- <span class="keyword">function</span>(Start,End,df) &#123;</span><br><span class="line">    station.name &lt;- colnames(df)</span><br><span class="line">    <span class="keyword">if</span> (Start %<span class="keyword">in</span>% station.name &amp;&amp; End %<span class="keyword">in</span>%station.name) &#123;</span><br><span class="line">       index_s &lt;- which((station.name == Start))</span><br><span class="line">       index_d &lt;- which((station.name == End))</span><br><span class="line">       <span class="keyword">return</span>(df[index_d,index_s])</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">       print(<span class="string">"你選擇的站不在價格表中!!"</span>) <span class="comment">#warning message</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>I give a specific price and find the all combinations of routes.</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">FindRouteGroup &lt;- <span class="keyword">function</span>(price, df)&#123;</span><br><span class="line">    range &lt;- which((<span class="number">0</span> &lt; df &amp; df &lt;= price), arr.ind = <span class="literal">TRUE</span>)</span><br><span class="line">    Origin &lt;- rownames(df)[range[,<span class="number">1</span>]]</span><br><span class="line">    Distination &lt;- colnames(df)[range[,<span class="number">2</span>]]</span><br><span class="line">    Price &lt;- c()</span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> seq(<span class="number">1</span>,length(Origin))) &#123;</span><br><span class="line">        s1 &lt;- as.character(Origin[i])</span><br><span class="line">        s2 &lt;- as.character(Distination[i])</span><br><span class="line">        money &lt;- FindPrice(s1,s2,df)</span><br><span class="line">        Price &lt;- c(Price,money)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span>(data.frame(Origin,Distination,Price))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>I have a Origin Station with a specific price and want to know how many and which stations I can arrive.</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">FindRouteGroup_v2 &lt;- <span class="keyword">function</span>(Origin,price, df)&#123;</span><br><span class="line">    <span class="keyword">if</span> (Origin %<span class="keyword">in</span>% colnames(df)) &#123;</span><br><span class="line">        index_s &lt;- which(colnames(df) == Origin)</span><br><span class="line">        range &lt;- which((<span class="number">0</span> &lt; df[,index_s] &amp; df[,index_s] &lt;= price), arr.ind = <span class="literal">TRUE</span>)</span><br><span class="line">        Distination &lt;- colnames(df)[range]</span><br><span class="line">        Price &lt;-as.numeric(df[index_s,range])  </span><br><span class="line">        <span class="keyword">return</span>(data.frame(Origin,Distination,Price))</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">       print(<span class="string">'起點不在價格表內'</span>) <span class="comment">#warning message</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><ul>
+<li>Initializing the data table.</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df1 &lt;- PriceData_matrix(<span class="number">81</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Display</span></span><br><span class="line">kable(df1) %&gt;% kable_styling(.)</span><br></pre></td></tr></table></figure>
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> A1 </th>
+   <th style="text-align:right;"> A2 </th>
+   <th style="text-align:right;"> A3 </th>
+   <th style="text-align:right;"> A4 </th>
+   <th style="text-align:right;"> A5 </th>
+   <th style="text-align:right;"> A6 </th>
+   <th style="text-align:right;"> A7 </th>
+   <th style="text-align:right;"> A8 </th>
+   <th style="text-align:right;"> A9 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 138 </td>
+   <td style="text-align:right;"> 287 </td>
+   <td style="text-align:right;"> 410 </td>
+   <td style="text-align:right;"> 554 </td>
+   <td style="text-align:right;"> 760 </td>
+   <td style="text-align:right;"> 904 </td>
+   <td style="text-align:right;"> 1069 </td>
+   <td style="text-align:right;"> 1512 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:right;"> 138 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 288 </td>
+   <td style="text-align:right;"> 420 </td>
+   <td style="text-align:right;"> 590 </td>
+   <td style="text-align:right;"> 768 </td>
+   <td style="text-align:right;"> 959 </td>
+   <td style="text-align:right;"> 1117 </td>
+   <td style="text-align:right;"> 1578 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:right;"> 287 </td>
+   <td style="text-align:right;"> 288 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 444 </td>
+   <td style="text-align:right;"> 618 </td>
+   <td style="text-align:right;"> 783 </td>
+   <td style="text-align:right;"> 962 </td>
+   <td style="text-align:right;"> 1138 </td>
+   <td style="text-align:right;"> 1583 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:right;"> 410 </td>
+   <td style="text-align:right;"> 420 </td>
+   <td style="text-align:right;"> 444 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 652 </td>
+   <td style="text-align:right;"> 798 </td>
+   <td style="text-align:right;"> 963 </td>
+   <td style="text-align:right;"> 1239 </td>
+   <td style="text-align:right;"> 1685 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:right;"> 554 </td>
+   <td style="text-align:right;"> 590 </td>
+   <td style="text-align:right;"> 618 </td>
+   <td style="text-align:right;"> 652 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 798 </td>
+   <td style="text-align:right;"> 966 </td>
+   <td style="text-align:right;"> 1262 </td>
+   <td style="text-align:right;"> 1793 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:right;"> 760 </td>
+   <td style="text-align:right;"> 768 </td>
+   <td style="text-align:right;"> 783 </td>
+   <td style="text-align:right;"> 798 </td>
+   <td style="text-align:right;"> 798 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 971 </td>
+   <td style="text-align:right;"> 1279 </td>
+   <td style="text-align:right;"> 2183 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:right;"> 904 </td>
+   <td style="text-align:right;"> 959 </td>
+   <td style="text-align:right;"> 962 </td>
+   <td style="text-align:right;"> 963 </td>
+   <td style="text-align:right;"> 966 </td>
+   <td style="text-align:right;"> 971 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1317 </td>
+   <td style="text-align:right;"> 2293 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A8 </td>
+   <td style="text-align:right;"> 1069 </td>
+   <td style="text-align:right;"> 1117 </td>
+   <td style="text-align:right;"> 1138 </td>
+   <td style="text-align:right;"> 1239 </td>
+   <td style="text-align:right;"> 1262 </td>
+   <td style="text-align:right;"> 1279 </td>
+   <td style="text-align:right;"> 1317 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2314 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A9 </td>
+   <td style="text-align:right;"> 1512 </td>
+   <td style="text-align:right;"> 1578 </td>
+   <td style="text-align:right;"> 1583 </td>
+   <td style="text-align:right;"> 1685 </td>
+   <td style="text-align:right;"> 1793 </td>
+   <td style="text-align:right;"> 2183 </td>
+   <td style="text-align:right;"> 2293 </td>
+   <td style="text-align:right;"> 2314 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+
+<ul>
+<li>Find Price</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(paste0(<span class="string">"The Price is: "</span>,FindPrice(<span class="string">"A1"</span>,<span class="string">"A5"</span>,df1)))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] &quot;The Price is: 554&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Find the routes groups</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">result &lt;- FindRouteGroup(<span class="number">1200</span>,df1) %&gt;% data.frame(.)</span><br><span class="line"><span class="comment"># Display</span></span><br><span class="line">kable(result) %&gt;% kable_styling(.)</span><br></pre></td></tr></table></figure>
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Origin </th>
+   <th style="text-align:left;"> Distination </th>
+   <th style="text-align:right;"> Price </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:right;"> 138 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:right;"> 287 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:right;"> 410 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:right;"> 554 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:right;"> 760 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:right;"> 904 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A8 </td>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:right;"> 1069 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:right;"> 138 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:right;"> 288 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:right;"> 420 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:right;"> 590 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:right;"> 768 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:right;"> 959 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A8 </td>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:right;"> 1117 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:right;"> 287 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:right;"> 288 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:right;"> 444 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:right;"> 618 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:right;"> 783 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:right;"> 962 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A8 </td>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:right;"> 1138 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:right;"> 410 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:right;"> 420 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:right;"> 444 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:right;"> 652 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:right;"> 798 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:right;"> 963 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:right;"> 554 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:right;"> 590 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:right;"> 618 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:right;"> 652 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:right;"> 798 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:right;"> 966 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:right;"> 760 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:right;"> 768 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:right;"> 783 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:right;"> 798 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:right;"> 798 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:right;"> 971 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:right;"> 904 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:right;"> 959 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:right;"> 962 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:right;"> 963 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:right;"> 966 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:right;"> 971 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:left;"> A8 </td>
+   <td style="text-align:right;"> 1069 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:left;"> A8 </td>
+   <td style="text-align:right;"> 1117 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A8 </td>
+   <td style="text-align:right;"> 1138 </td>
+  </tr>
+</tbody>
+</table>
+
+<ul>
+<li>Find the routes combination based on spicific station and price</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">result &lt;- FindRouteGroup_v2(<span class="string">"A3"</span>,<span class="number">1200</span>,df1)%&gt;%data.frame(.)</span><br><span class="line">rownames(result) &lt;- seq(<span class="number">1</span>,length(result$Origin))</span><br><span class="line"><span class="comment"># Display</span></span><br><span class="line">kable(result) %&gt;% kable_styling(.)</span><br></pre></td></tr></table></figure>
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Origin </th>
+   <th style="text-align:left;"> Distination </th>
+   <th style="text-align:right;"> Price </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:right;"> 287 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:right;"> 288 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:right;"> 444 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:right;"> 618 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:right;"> 783 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A7 </td>
+   <td style="text-align:right;"> 962 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:left;"> A8 </td>
+   <td style="text-align:right;"> 1138 </td>
+  </tr>
+</tbody>
+</table>
+
+<h2 id="Implementation-from-gis-data"><a href="#Implementation-from-gis-data" class="headerlink" title="Implementation from gis data"></a>Implementation from gis data</h2><p>I use a data table and shp file to demo the function in this session.</p>
+<h3 id="Load-data"><a href="#Load-data" class="headerlink" title="Load data"></a>Load data</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 票價表</span></span><br><span class="line">price_matrix &lt;- read.csv(<span class="string">"data/QG1/price_matrix.csv"</span>,header = <span class="literal">T</span>)</span><br><span class="line">rownames(price_matrix) &lt;- colnames(price_matrix)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 站點位置</span></span><br><span class="line">stations &lt;- read.csv(<span class="string">"data/QG1/taoyuan_metro.csv"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># SHP</span></span><br><span class="line">Map &lt;- readOGR(<span class="string">"data/QG1/county.shp"</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Draw-a-Map"><a href="#Draw-a-Map" class="headerlink" title="Draw a Map"></a>Draw a Map</h3><ul>
+<li>Design Function</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">CombineMap &lt;- <span class="keyword">function</span>(site, price, p_matrix,stations, basemap)&#123;</span><br><span class="line">    station.name &lt;- colnames(stations)</span><br><span class="line">    result &lt;- FindRouteGroup_v2(site, price,p_matrix)</span><br><span class="line">    index &lt;- which((price_matrix[,site] &lt;= price &amp; price_matrix[,site] &gt; <span class="number">0</span>),arr.ind = <span class="literal">T</span>)</span><br><span class="line">    x &lt;- stations$X_coor[index]</span><br><span class="line">    y &lt;- stations$Y_coor[index]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Draw a map</span></span><br><span class="line">    plot(basemap)</span><br><span class="line">    points(x,y,type = <span class="string">"p"</span>,pch = <span class="number">5</span>,col = <span class="string">"red"</span>)</span><br><span class="line">    map.scale(<span class="number">243527.2</span>,<span class="number">2738124</span>,<span class="number">20000</span>, <span class="string">"km"</span>,<span class="number">2</span>,<span class="number">10</span>) </span><br><span class="line">    north.arrow(<span class="number">235700.2</span>,<span class="number">2768124</span>,<span class="number">5000</span>,col= <span class="string">'lightblue'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#Table</span></span><br><span class="line">    kable(result) %&gt;% kable_styling(.)</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Draw</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CombineMap(<span class="string">"A1"</span>,<span class="number">70</span>,price_matrix,stations,Map)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/QG-Hw1_files/figure-html/unnamed-chunk-14-1.png" alt=""><!-- --><table class="table" style="margin-left: auto; margin-right: auto;"><br> <thead><br>  <tr><br>   <th style="text-align:left;"> Origin </th><br>   <th style="text-align:left;"> Distination </th><br>   <th style="text-align:right;"> Price </th><br>  </tr><br> </thead></p>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:left;"> A2 </td>
+   <td style="text-align:right;"> 30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:left;"> A3 </td>
+   <td style="text-align:right;"> 35 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:left;"> A4 </td>
+   <td style="text-align:right;"> 35 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:left;"> A5 </td>
+   <td style="text-align:right;"> 35 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A1 </td>
+   <td style="text-align:left;"> A6 </td>
+   <td style="text-align:right;"> 50 </td>
+  </tr>
+</tbody>
+</table>
+
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R/" rel="tag"># R</a>
+          
+            <a href="/tags/Quantitative-Geography/" rel="tag"># Quantitative Geography</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/18/HG20150918/" rel="next" title="【Human Geography】 何謂全球化">
+                <i class="fa fa-chevron-left"></i> 【Human Geography】 何謂全球化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/17/%E3%80%90QGIS%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8QGIS%E4%B8%8B%E8%BC%89%E8%88%87%E4%BD%BF%E7%94%A8OSM%E5%9C%96%E8%B3%87/" rel="prev" title="【QGIS】 如何在QGIS下載與使用OSM圖資">
+                【QGIS】 如何在QGIS下載與使用OSM圖資 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">MeiYiLiu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MeiYiLiu-tw9702" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/ww_2017_owo/" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Based-on-the-data-table-to-find-the-price-and-route"><span class="nav-number">1.</span> <span class="nav-text">Based on the data table to find the price and route.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Require-packages"><span class="nav-number">2.</span> <span class="nav-text">Require packages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Relative-Functions"><span class="nav-number">3.</span> <span class="nav-text">Build Relative Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementation"><span class="nav-number">4.</span> <span class="nav-text">Implementation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementation-from-gis-data"><span class="nav-number">5.</span> <span class="nav-text">Implementation from gis data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Load-data"><span class="nav-number">5.1.</span> <span class="nav-text">Load data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Draw-a-Map"><span class="nav-number">5.2.</span> <span class="nav-text">Draw a Map</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MeiYiLiu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
