@@ -305,16 +305,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/07/22/%E4%BD%9C%E5%93%81%E9%9B%86/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/07/22/%E4%BD%9C%E5%93%81%E9%9B%86/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -447,14 +437,10 @@
           
 
   
-    <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
-    </div>
 
   
-
+    <div id="gitalk-container"></div>
+  
 
 
         </div>
@@ -751,53 +737,26 @@
 
 
 
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-      <style>
-        a.gitment-editor-footer-tip { display: none; }
-        .gitment-container.gitment-footer-container { display: none; }
-      </style>
-    
-
-    
-      <script type="text/javascript">
-      function renderGitment(){
-        var gitment = new Gitmint({
-            id: window.location.pathname, 
-            owner: 'MeiYiLiu-tw9702',
-            repo: 'https://github.com/MeiYiLiu-tw9702/MeiYiLiu-tw9702.github.io.git',
-            
-            lang: "zh-TW" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
-            
-            oauth: {
-            
-                redirect_protocol: 'https://meiyiliu-tw9702.github.io/',
-            
-            
-                client_secret: '348fbd358b9562290381d47b6b3c805e133b402b',
-            
-                client_id: '8917014d7ece5a8962a6'
-            }});
-        gitment.render('gitment-container');
-      }
-
-      
-      renderGitment();
-      
-      </script>
-    
 
 
 
 
 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://gist.githubusercontent.com/MeiYiLiu-tw9702/4488ed6b780b667d29c7a61946aee6ba/raw/31e884377c39b4e5b853f5a4ec373f568357a404/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '8917014d7ece5a8962a6',
+          clientSecret: '348fbd358b9562290381d47b6b3c805e133b402b',
+          repo: 'https://github.com/MeiYiLiu-tw9702/MeiYiLiu-tw9702.github.io.git',
+          owner: 'MeiYiLiu-tw9702',
+          admin: ['MeiYiLiu-tw9702'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
 
   
